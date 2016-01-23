@@ -9,9 +9,12 @@ namespace NIM01
     class NIM_Game
     {
         int stoneCount;
+        const int maxNumStones = 30;
         public int gameStart()
         {
-            stoneCount = 3;
+            Random randomGen = new Random();
+            stoneCount = randomGen.Next(1, maxNumStones);
+
             return stoneCount;
         }
     }
