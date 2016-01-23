@@ -12,6 +12,11 @@ namespace NIM01
         {
             Console.Clear();
             Console.WriteLine("Hey, it's time to play NIM!");
+
+            NIM_Game theGame = new NIM_Game();
+            
+            Console.WriteLine("Stones in pile:{0}", theGame.gameStart() );
+            
         }
     }
 }
