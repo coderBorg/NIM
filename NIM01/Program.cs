@@ -29,6 +29,10 @@ namespace NIM01
                 Console.WriteLine("User goes first.");
             else
                 Console.WriteLine("Computer goes first.");
+            theGame.setIsUserFirst(isUserFirst);
+            //Console.WriteLine(theGame.getIsUserFirst());//test
+
+
 
         }
     }
