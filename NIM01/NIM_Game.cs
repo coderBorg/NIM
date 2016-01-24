@@ -11,6 +11,7 @@ namespace NIM01
         int stoneCount;
         const int maxNumStones = 30;
         bool isUserFirst;
+        bool isUserTurn;
 
         public int gameStart()
         {
@@ -23,11 +24,27 @@ namespace NIM01
         public void setIsUserFirst(bool isUserFirst)
         {
             this.isUserFirst = isUserFirst;
+            this.isUserTurn = true;
         }
 
         public bool getIsUserFirst()
         {
             return this.isUserFirst;
+        }
+
+        public bool isGameOver()
+        {
+            return stoneCount == 0;
+        }
+
+        public bool getIsUserTurn()
+        {
+            return this.isUserTurn;
+        }
+
+        public void userTurn(int stones)
+        {
+            if (stoneCount - stones >= 0) stoneCount -= stones;
         }
     }
 }

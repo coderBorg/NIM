@@ -36,5 +36,33 @@ namespace NIM01
             } while (!isInputValid);
             return isUserFirst;
         }
+
+        public int getIntInRange(int min, int max)
+        {
+            string userInput;
+            int userInt;
+            do
+            {
+                userInput = Console.ReadLine();
+                if ((userInput == 'Y') || (userInput == 'y'))
+                {
+                    isUserFirst = true;
+                    isInputValid = true;
+                }
+                else if ((userInput == 'N') || (userInput == 'n'))
+                {
+                    isUserFirst = false;
+                    isInputValid = true;
+                }
+                else
+                {
+                    isInputValid = false;
+                    Console.WriteLine();
+                    Console.WriteLine("Invalid Input");
+                }
+
+            } while (!isInputValid);
+            return isUserFirst;
+        }
     }
 }
