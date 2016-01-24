@@ -32,6 +32,7 @@ namespace NIM01
             theGame.setIsUserFirst(isUserFirst);
             Console.WriteLine(theGame.getIsUserFirst());//test
 
+            //play the game
             do
             {
                 if ( theGame.getIsUserTurn() )
