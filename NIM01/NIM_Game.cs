@@ -24,7 +24,7 @@ namespace NIM01
         public void setIsUserFirst(bool isUserFirst)
         {
             this.isUserFirst = isUserFirst;
-            this.isUserTurn = true;
+            this.isUserTurn = isUserFirst;
         }
 
         public bool getIsUserFirst()
@@ -45,6 +45,26 @@ namespace NIM01
         public void userTurn(int stones)
         {
             if (stoneCount - stones >= 0) stoneCount -= stones;
+            this.isUserTurn = false;
         }
+
+        public int computerTurn()
+        {
+            Random randomGen = new Random();
+            int computerTurn;
+            do
+            {
+                computerTurn = randomGen.Next(1, 3);
+            } while (computerTurn > stoneCount);
+            stoneCount -= computerTurn;
+            this.isUserTurn = true;
+            return computerTurn;
+        }
+
+        public int getNumStones()
+        {
+            return stoneCount;
+        }
+
     }
 }

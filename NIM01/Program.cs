@@ -30,7 +30,7 @@ namespace NIM01
             else
                 Console.WriteLine("Computer goes first.");
             theGame.setIsUserFirst(isUserFirst);
-            //Console.WriteLine(theGame.getIsUserFirst());//test
+            Console.WriteLine(theGame.getIsUserFirst());//test
 
             do
             {
@@ -43,10 +43,14 @@ namespace NIM01
                 {
                     Console.WriteLine("Computer's turn, Computer takes {0} stones", theGame.computerTurn());
                 }
-                Console.WriteLine("Stones in pile: {0}" theGame.getNumStones());
+                Console.WriteLine("Stones in pile: {0}", theGame.getNumStones());
 
-            } while (!theGame.isGameOver());
+            } while ( !theGame.isGameOver() );
 
+            if (theGame.getIsUserTurn())
+                Console.WriteLine("You win!");
+            else
+                Console.WriteLine("Computer wins!");
         }
     }
 }

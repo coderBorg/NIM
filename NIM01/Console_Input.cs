@@ -44,25 +44,17 @@ namespace NIM01
             do
             {
                 userInput = Console.ReadLine();
-                if ((userInput == 'Y') || (userInput == 'y'))
+                if ( Int32.TryParse(userInput, out userInt) )
                 {
-                    isUserFirst = true;
-                    isInputValid = true;
-                }
-                else if ((userInput == 'N') || (userInput == 'n'))
-                {
-                    isUserFirst = false;
-                    isInputValid = true;
+                    if ((userInt >= min) && (userInt <= max)) return userInt;
+                    else
+                        Console.WriteLine("Invalid Input");
                 }
                 else
-                {
-                    isInputValid = false;
-                    Console.WriteLine();
                     Console.WriteLine("Invalid Input");
-                }
-
-            } while (!isInputValid);
-            return isUserFirst;
+                
+            } while (true);
+          
         }
     }
 }
