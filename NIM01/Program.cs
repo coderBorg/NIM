@@ -21,34 +21,10 @@ namespace NIM01
             Console.WriteLine("Stones in pile:{0}", theGame.gameStart() );
 
             //Who goes first
+            Console_Input userInput = new Console_Input();
             Console.Write("Do you want to go first?");
-            char userInput;
-            bool isUserFirst = false;
-            bool isInputValid = false;
-            do
-            {
-                userInput = Console.ReadKey().KeyChar;
-                if ((userInput == 'Y') || (userInput == 'y'))
-                {
-                    isUserFirst = true;
-                    isInputValid = true;
-                }
-                else if ((userInput == 'N') || (userInput == 'n'))
-                {
-                    isUserFirst = false;
-                    isInputValid = true;
-                }
-                else
-                {
-                    isInputValid = false;
-                    Console.WriteLine();
-                    Console.WriteLine("Invalid Input");
-                }
-                    
-            } while (!isInputValid);
-
+            bool isUserFirst = userInput.getYesOrNo();
             Console.WriteLine();
-
             if (isUserFirst)
                 Console.WriteLine("User goes first.");
             else
