@@ -30,15 +30,15 @@ namespace NIM01
             else
                 Console.WriteLine("Computer goes first.");
             theGame.setIsUserFirst(isUserFirst);
-            Console.WriteLine(theGame.getIsUserFirst());//test
-
+            
             //play the game
             do
             {
                 if ( theGame.getIsUserTurn() )
                 {
                     Console.Write("User's turn, how many stones do you take?");
-                    theGame.userTurn(userInput.getIntInRange(1, 3));
+                    while (!theGame.userTurn(userInput.getIntInRange(1, 3)))
+                        Console.WriteLine("Invalid Move");
                 }
                 else
                 {
