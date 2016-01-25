@@ -23,16 +23,19 @@ namespace NIM01
         bool isUserFirst;
         bool isUserTurn;
         Random randomGen;
+        GameSearchTree theSearchTree;
 
         public NIM_Game()
         {
             randomGen = new Random();
+            theSearchTree = new GameSearchTree();
         }
 
         public int gameStart()
         {
             Random randomGen = new Random();
             stoneCount = randomGen.Next(1, maxNumStones);
+            theSearchTree.setStartStones(stoneCount);
 
             return stoneCount;
         }
@@ -41,6 +44,7 @@ namespace NIM01
         {
             this.isUserFirst = isUserFirst;
             this.isUserTurn = isUserFirst;
+            theSearchTree.setIsUserFirst(isUserFirst);
         }
 
         public bool getIsUserFirst()
