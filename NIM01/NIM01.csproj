@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Console_Input.cs" />
+    <Compile Include="GameSearchTree.cs" />
     <Compile Include="NIM_Game.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

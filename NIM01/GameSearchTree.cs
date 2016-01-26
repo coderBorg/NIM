@@ -27,13 +27,19 @@ namespace NIM01
             root.gameStateIsUserNextTurn = isUserFirst;
         }
 
-        //Returns true if User is winner
-        private bool depthSearch(Node startNode)
+        //Returns +1 if computer can win
+        private int depthSearch(Node currentNode)
         {
-            if ( startNode.gameStateStones ==0 )
+            if ( currentNode.gameStateStones == 0 )
             {
-                return 
+                if (currentNode.gameStateIsUserNextTurn) return -1;
+                else return 1; 
             }
+
+            if (currentNode.m)
+
+            if ( currentNode. )
+
         }
 
         class Node
@@ -43,7 +49,10 @@ namespace NIM01
 
             //Pruning variables
             public int alpha;
-            public int beta; 
+            public int beta;
+
+            //Minimax value
+            public int miniMax;
 
             //References to parent and children
             public Node parent;
