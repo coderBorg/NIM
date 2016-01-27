@@ -22,6 +22,7 @@ namespace NIM01
         const int maxTurnStones = 3;
         bool isUserFirst;
         bool isUserTurn;
+        bool isTreeBuilt = false;
         Random randomGen;
         GameSearchTree theSearchTree;
 
@@ -33,8 +34,9 @@ namespace NIM01
 
         public int gameStart()
         {
-            Random randomGen = new Random();
-            stoneCount = randomGen.Next(1, maxNumStones);
+            //Random randomGen = new Random();
+            //stoneCount = randomGen.Next(1, maxNumStones);
+            stoneCount = 1;
             theSearchTree.setStartStones(stoneCount);
 
             return stoneCount;
@@ -84,8 +86,21 @@ namespace NIM01
             
             int computerTurn;
 
+            const int strategyMinMax = 2;
+            const int computerStrategy = strategyMinMax;
+
+
             //Next turn will be the user's
             isUserTurn = true;
+
+
+            if ( computerStrategy == strategyMinMax )
+            {
+                if ( !isTreeBuilt ) theSearchTree.BuildGameTree();
+                Console.WriteLine( "Number of Nodes {0} in MinMax tree: ", theSearchTree.getNumberOfNodes() );
+
+                //add find turn call
+            }
 
             //Strategy is to leave opponent with 4n+1 stones where n is an integer >= 0
             computerTurn = (stoneCount - 1) % (maxTurnStones + 1);

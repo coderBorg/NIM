@@ -10,10 +10,12 @@ namespace NIM01
     {
 
         private Node root, gameStateNode;
+        private const int numChildren = 3;
+        private int numberOfTreeNodes = 0;
 
-        public void GameSearchTree()
+        public GameSearchTree()
         {
-            Node root = new Node(this);
+            root = new Node(this);
             gameStateNode = root;        
         }
 
@@ -27,47 +29,118 @@ namespace NIM01
             root.gameStateIsUserNextTurn = isUserFirst;
         }
 
-        //Returns +1 if computer can win
-        private int depthSearch(Node currentNode)
+        public void BuildGameTree()
         {
-            if ( currentNode.gameStateStones == 0 )
+            buildMinMaxTree(root);
+        }
+
+        public int getNumberOfNodes()
+        {
+            return numberOfTreeNodes;
+        }
+
+
+        ////Returns +1 if computer can win
+        //private int findComputerMove(Node currentNode)
+        //{
+
+        //    if ( currentNode.gameStateStones == 0 )
+        //    {
+        //        if (currentNode.gameStateIsUserNextTurn) return -1;
+        //        else return 1; 
+        //    }
+
+        //    if (currentNode.m)
+
+        //    if ( currentNode. )
+
+        //}
+
+        private void buildMinMaxTree(Node currentNode)
+        {
+            //If node is leaf then return utility
+            if (currentNode.gameStateStones == 0)
             {
-                if (currentNode.gameStateIsUserNextTurn) return -1;
-                else return 1; 
+                if (currentNode.gameStateIsUserNextTurn) currentNode.miniMax = -1;
+                else currentNode.miniMax = 1;
+                return;
             }
 
-            if (currentNode.m)
+            int loopCount = numChildren;
+            if (currentNode.gameStateStones < numChildren) loopCount = currentNode.gameStateStones; 
+            for (int childIdx = 0; childIdx < numChildren; childIdx++)
+            {
+                if ( currentNode.child[childIdx] == null)
+                {
+                    currentNode.child[childIdx] = new Node(this);
+                    currentNode.tree.numberOfTreeNodes++;
+                    currentNode.child[childIdx].gameStateIsUserNextTurn = !currentNode.gameStateIsUserNextTurn;
+                    currentNode.child[childIdx].gameStateStones = currentNode.gameStateStones - childIdx + 1;
+                }
+                buildMinMaxTree(currentNode.child[childIdx]);
 
-            if ( currentNode. )
+            }
+
+            //Find MinMax value
+            //if user's turn then node is minimizer node
+            if( currentNode.gameStateIsUserNextTurn )
+            {
+                int minVal = int.MaxValue;
+                for (int childIdx = 0; childIdx < numChildren; childIdx++)
+                {
+                    if (currentNode.child[childIdx].miniMax < minVal) minVal = currentNode.child[childIdx].miniMax;
+                }
+                currentNode.miniMax = minVal;
+            } 
+            else //node is maximizer node
+            {
+                int maxVal = int.MinValue;
+                for (int childIdx = 0; childIdx < numChildren; childIdx++)
+                {
+                    if (currentNode.child[childIdx].miniMax > maxVal) maxVal = currentNode.child[childIdx].miniMax;
+                }
+                currentNode.miniMax = maxVal;
+            }
+
 
         }
 
         class Node
         {
             //Reference to containing type
-            private GameSearchTree tree;
+            public GameSearchTree tree;
 
             //Pruning variables
-            public int alpha;
-            public int beta;
+            //public int alpha;
+            //public int beta;
 
             //Minimax value
             public int miniMax;
 
             //References to parent and children
             public Node parent;
-            public Node[] child = new Node[3];
+            public Node[] child = new Node[numChildren];
             
             public int gameStateStones { get; set; }
             public bool gameStateIsUserNextTurn { get; set; }
 
             public Node()
             {
+                initRefs();
             }
 
             public Node(GameSearchTree tree)
             {
+                initRefs();
                 this.tree = tree;
+            }
+
+            public void initRefs()
+            {
+                for (int i = 0; i < numChildren; i++)
+                {
+                    child[i] = null;
+                }
             }
 
             public void InsertChild(Node newChild, int childIdx )
