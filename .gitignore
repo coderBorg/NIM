@@ -2,3 +2,5 @@
 /NIM01/obj/*
 *.suo
 *.xlsx
+/NIM01/Visual Studio 2015/*
+/visual studio 2015/*
