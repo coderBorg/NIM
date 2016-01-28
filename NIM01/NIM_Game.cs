@@ -36,7 +36,7 @@ namespace NIM01
         {
             //Random randomGen = new Random();
             //stoneCount = randomGen.Next(1, maxNumStones);
-            stoneCount = 4;//debug
+            stoneCount = 10;//debug
             theSearchTree.setStartStones(stoneCount);
 
             return stoneCount;

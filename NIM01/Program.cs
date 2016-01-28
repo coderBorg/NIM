@@ -10,8 +10,10 @@ namespace NIM01
     {
         static void Main(string[] args)
         {
-            //Welcom message
+                        
+            //Welcome message
             Console.Clear();
+            Console.WriteLine("Intmax is {0}", int.MaxValue);//debug
             Console.WriteLine("Hey, it's time to play NIM!");
 
             //Intantiate the game and user input utility
