@@ -16,7 +16,8 @@ namespace NIM01
         public GameSearchTree()
         {
             root = new Node(this);
-            gameStateNode = root;        
+            gameStateNode = root;
+            numberOfTreeNodes++;       
         }
 
         public void setStartStones(int stones)
@@ -68,14 +69,14 @@ namespace NIM01
 
             int loopCount = numChildren;
             if (currentNode.gameStateStones < numChildren) loopCount = currentNode.gameStateStones; 
-            for (int childIdx = 0; childIdx < numChildren; childIdx++)
+            for (int childIdx = 0; childIdx < loopCount; childIdx++)
             {
                 if ( currentNode.child[childIdx] == null)
                 {
                     currentNode.child[childIdx] = new Node(this);
                     currentNode.tree.numberOfTreeNodes++;
                     currentNode.child[childIdx].gameStateIsUserNextTurn = !currentNode.gameStateIsUserNextTurn;
-                    currentNode.child[childIdx].gameStateStones = currentNode.gameStateStones - childIdx + 1;
+                    currentNode.child[childIdx].gameStateStones = currentNode.gameStateStones - (childIdx + 1);
                 }
                 buildMinMaxTree(currentNode.child[childIdx]);
 
@@ -86,7 +87,7 @@ namespace NIM01
             if( currentNode.gameStateIsUserNextTurn )
             {
                 int minVal = int.MaxValue;
-                for (int childIdx = 0; childIdx < numChildren; childIdx++)
+                for (int childIdx = 0; childIdx < loopCount; childIdx++)
                 {
                     if (currentNode.child[childIdx].miniMax < minVal) minVal = currentNode.child[childIdx].miniMax;
                 }
@@ -95,7 +96,7 @@ namespace NIM01
             else //node is maximizer node
             {
                 int maxVal = int.MinValue;
-                for (int childIdx = 0; childIdx < numChildren; childIdx++)
+                for (int childIdx = 0; childIdx < loopCount; childIdx++)
                 {
                     if (currentNode.child[childIdx].miniMax > maxVal) maxVal = currentNode.child[childIdx].miniMax;
                 }

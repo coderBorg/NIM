@@ -36,7 +36,7 @@ namespace NIM01
         {
             //Random randomGen = new Random();
             //stoneCount = randomGen.Next(1, maxNumStones);
-            stoneCount = 1;
+            stoneCount = 4;//debug
             theSearchTree.setStartStones(stoneCount);
 
             return stoneCount;
@@ -97,7 +97,8 @@ namespace NIM01
             if ( computerStrategy == strategyMinMax )
             {
                 if ( !isTreeBuilt ) theSearchTree.BuildGameTree();
-                Console.WriteLine( "Number of Nodes {0} in MinMax tree: ", theSearchTree.getNumberOfNodes() );
+                Console.WriteLine("Number of Nodes in MinMax tree: {0}", theSearchTree.getNumberOfNodes() );
+                isTreeBuilt = true;
 
                 //add find turn call
             }
