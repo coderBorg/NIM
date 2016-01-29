@@ -57,6 +57,8 @@ namespace NIM01
 
         //}
 
+        private const bool debugTree = false;
+
         private void buildMinMaxTree(Node currentNode)
         {
             //If node is leaf then return utility
@@ -64,6 +66,7 @@ namespace NIM01
             {
                 if (currentNode.gameStateIsUserNextTurn) currentNode.miniMax = -1;
                 else currentNode.miniMax = 1;
+                if (debugTree) Console.WriteLine("Leaf node MiniMax value is {0}", currentNode.miniMax);
                 return;
             }
 
@@ -92,6 +95,7 @@ namespace NIM01
                     if (currentNode.child[childIdx].miniMax < minVal) minVal = currentNode.child[childIdx].miniMax;
                 }
                 currentNode.miniMax = minVal;
+                if (debugTree) Console.Write("Minimizer node.");
             } 
             else //node is maximizer node
             {
@@ -101,8 +105,37 @@ namespace NIM01
                     if (currentNode.child[childIdx].miniMax > maxVal) maxVal = currentNode.child[childIdx].miniMax;
                 }
                 currentNode.miniMax = maxVal;
+                if (debugTree) Console.Write("Maximizer node.");
             }
+            if (debugTree) Console.WriteLine(" MiniMax value is {0}.  {1} stones.", currentNode.miniMax, currentNode.gameStateStones);
 
+        }
+
+        public void userTurn(int stones)
+        {
+            gameStateNode = gameStateNode.child[stones - 1];
+        }
+
+        public int findComputerMove()
+        {
+            //Find best move
+            int max = int.MinValue;
+            int turnStones =1;
+            int turnIdx = 0;
+            for(int childIdx = 0; childIdx < numChildren; childIdx++)
+            {
+                if (gameStateNode.child[childIdx] != null)
+                {
+                    if (gameStateNode.child[childIdx].miniMax >= max)
+                    {
+                        max = gameStateNode.child[childIdx].miniMax;
+                        turnStones = childIdx + 1;
+                        turnIdx = childIdx;
+                    }
+                }
+            }
+            gameStateNode = gameStateNode.child[turnIdx];
+            return turnStones;
 
         }
 

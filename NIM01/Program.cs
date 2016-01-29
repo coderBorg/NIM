@@ -13,7 +13,7 @@ namespace NIM01
                         
             //Welcome message
             Console.Clear();
-            Console.WriteLine("Intmax is {0}", int.MaxValue);//debug
+            //Console.WriteLine("Intmax is {0}", int.MaxValue);//debug
             Console.WriteLine("Hey, it's time to play NIM!");
 
             //Intantiate the game and user input utility
@@ -32,6 +32,8 @@ namespace NIM01
             else
                 Console.WriteLine("Computer goes first.");
             theGame.setIsUserFirst(isUserFirst);
+
+            theGame.setUpGame();
             
             //play the game
             do

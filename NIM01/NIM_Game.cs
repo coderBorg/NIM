@@ -36,7 +36,8 @@ namespace NIM01
         {
             //Random randomGen = new Random();
             //stoneCount = randomGen.Next(1, maxNumStones);
-            stoneCount = 10;//debug
+            //stoneCount = 17;//debug
+            stoneCount = randomGen.Next(1, 29);//debug
             theSearchTree.setStartStones(stoneCount);
 
             return stoneCount;
@@ -70,11 +71,19 @@ namespace NIM01
             {
                 stoneCount -= stones;
                 this.isUserTurn = false;
+                theSearchTree.userTurn(stones);
                 return true;
             }
             else
                 return false;
             
+        }
+
+        public void setUpGame()
+        {
+            if (!isTreeBuilt) theSearchTree.BuildGameTree();
+            Console.WriteLine("Number of Nodes in MinMax tree: {0}", theSearchTree.getNumberOfNodes());
+            isTreeBuilt = true;
         }
 
         //Function:  computerTurn()
@@ -96,31 +105,33 @@ namespace NIM01
 
             if ( computerStrategy == strategyMinMax )
             {
-                if ( !isTreeBuilt ) theSearchTree.BuildGameTree();
-                Console.WriteLine("Number of Nodes in MinMax tree: {0}", theSearchTree.getNumberOfNodes() );
-                isTreeBuilt = true;
+               
 
                 //add find turn call
-            }
-
-            //Strategy is to leave opponent with 4n+1 stones where n is an integer >= 0
-            computerTurn = (stoneCount - 1) % (maxTurnStones + 1);
-
-            //If move is legal execute it
-            if (computerTurn > 0)
-            {
+                computerTurn =  theSearchTree.findComputerMove();
                 stoneCount -= computerTurn;
                 return computerTurn;
             }
 
-            //If there is no optimal move then choose move at random
-            do
-            {
-                computerTurn = randomGen.Next( minTurnStones, maxTurnStones );
-            } while ( computerTurn > stoneCount );
-            stoneCount -= computerTurn;
-            return computerTurn;
-        }
+            ////Strategy is to leave opponent with 4n+1 stones where n is an integer >= 0
+            //computerTurn = (stoneCount - 1) % (maxTurnStones + 1);
+
+            ////If move is legal execute it
+            //if (computerTurn > 0)
+            //{
+            //    stoneCount -= computerTurn;
+            //    return computerTurn;
+            //}
+
+            ////If there is no optimal move then choose move at random
+            //do
+            //{
+            //    computerTurn = randomGen.Next( minTurnStones, maxTurnStones );
+            //} while ( computerTurn > stoneCount );
+            //stoneCount -= computerTurn;
+            //return computerTurn;
+
+        }//************END METHOD
 
         public int getNumStones()
         {
