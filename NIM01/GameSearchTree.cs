@@ -8,7 +8,7 @@ namespace NIM01
 {
     class GameSearchTree
     {
-
+        Random randomGen;
         private Node root, gameStateNode;
         private const int numChildren = 3;
         private int numberOfTreeNodes = 0;
@@ -17,7 +17,8 @@ namespace NIM01
         {
             root = new Node(this);
             gameStateNode = root;
-            numberOfTreeNodes++;       
+            numberOfTreeNodes++;
+            randomGen = new Random();
         }
 
         public void setStartStones(int stones)
@@ -120,7 +121,7 @@ namespace NIM01
         {
             //Find best move
             int max = int.MinValue;
-            int turnStones =1;
+            int turnStones = 1;
             int turnIdx = 0;
             for(int childIdx = 0; childIdx < numChildren; childIdx++)
             {
@@ -134,6 +135,17 @@ namespace NIM01
                     }
                 }
             }
+
+            //If there is no winning move then choose randomly
+            if ( max < 1 )
+            {
+                do
+                {
+                    turnStones = randomGen.Next(1, numChildren);
+                    turnIdx = turnStones - 1;
+                } while ( gameStateNode.child[turnIdx] == null ); 
+            }
+
             gameStateNode = gameStateNode.child[turnIdx];
             return turnStones;
 
